@@ -22,12 +22,12 @@ var listener *net.UDPConn
 var observers []RxCallback
 
 // Load 模块载入
-func Load(ip string, port uint16, frameMaxLen int) error {
+func Load(ip uint32, port uint16, frameMaxLen int) error {
 	lagan.Info(tag, "init")
-	addr := net.UDPAddr{IP: net.ParseIP(ip), Port: int(port)}
 
 	var err error
-	listener, err = net.ListenUDP("udp", &addr)
+	addr := &net.UDPAddr{IP: []uint8{uint8(ip >> 24), uint8(ip >> 16), uint8(ip >> 8), uint8(ip)}, Port: int(port)}
+	listener, err = net.ListenUDP("udp", addr)
 	if err != nil {
 		lagan.Error(tag, "bind pipe net failed")
 		return err

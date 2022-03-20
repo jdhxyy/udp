@@ -8,7 +8,7 @@ import (
 
 func TestCase1(t *testing.T) {
 	lagan.SetFilterLevel(lagan.LevelDebug)
-	_ = Load("0.0.0.", 2002, 4096)
+	_ = Load(0, 2002, 4096)
 	Send([]uint8("jdh99"), 0x7f000001, 2003)
 
 	select {
